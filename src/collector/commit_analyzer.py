@@ -69,11 +69,13 @@ class CommitAnalyzer:
 
     def __init__(self, known_agents: Optional[List[str]] = None,
                  known_repos: Optional[List[str]] = None):
+        agents = known_agents if known_agents is not None else KNOWN_AGENTS
+        repos = known_repos if known_repos is not None else KNOWN_REPOS
         self.known_agents = set(
-            (a or "agent").lower() for a in (known_agents or KNOWN_AGENTS)
+            (a or "agent").lower() for a in agents
         )
         self.known_repos = set(
-            (r or "repo").lower() for r in (known_repos or KNOWN_REPOS)
+            (r or "repo").lower() for r in repos
         )
 
     # ------------------------------------------------------------------
@@ -82,8 +84,8 @@ class CommitAnalyzer:
 
     def analyze_commit(self, commit_data: Dict[str, Any]) -> CommitEvent:
         """Analyze a single commit dict (GitHub-collector format) into a CommitEvent."""
-        message = commit_data.get("description", "")
-        raw_files = commit_data.get("files", [])
+        message = commit_data.get("description", "") or ""
+        raw_files = commit_data.get("files", []) or []
         # Files may come as list of strings or list of dicts with "filename" key
         files_changed: List[str] = []
         for f in raw_files:
@@ -97,7 +99,8 @@ class CommitAnalyzer:
         dependencies = self.extract_dependencies(files_changed)
 
         # Additional category: if agent name is not the author, it's cross-agent
-        author_lower = commit_data.get("agent", "").lower()
+        author_raw = commit_data.get("agent", "") or ""
+        author_lower = str(author_raw).lower()
         for mention in mentions:
             if mention.lower() not in author_lower:
                 if EventCategory.CROSS_AGENT not in categories:
@@ -119,6 +122,7 @@ class CommitAnalyzer:
     def categorize_message(self, message: str) -> List[EventCategory]:
         """Heuristic categorization based on commit message content."""
         cats: List[EventCategory] = []
+        message = str(message) if message is not None else ""
         msg_lower = message.lower()
 
         # RFC activity
@@ -149,7 +153,7 @@ class CommitAnalyzer:
 
     def extract_mentions(self, message: str) -> List[str]:
         """Extract agent names mentioned in a commit message."""
-        msg_lower = message.lower()
+        msg_lower = str(message).lower() if message is not None else ""
         found: List[str] = []
         for agent in sorted(self.known_agents, key=len, reverse=True):
             if agent in msg_lower:

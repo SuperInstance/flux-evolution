@@ -409,7 +409,7 @@ class EcosystemHealthAnalyzer:
             dt = datetime.fromisoformat(last_commit_date)
             if dt.tzinfo is not None:
                 dt = dt.replace(tzinfo=None)
-            now = datetime.utcnow()
+            now = datetime.now(timezone.utc).replace(tzinfo=None)
             days_ago = (now - dt).days
         except (ValueError, AttributeError):
             return 0.0
