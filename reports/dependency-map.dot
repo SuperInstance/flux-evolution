@@ -1,0 +1,7 @@
+digraph fleet {
+    rankdir=LR;
+    fontname="Helvetica";
+    node [shape=box, fontname="Helvetica", style=filled];
+
+
+}

@@ -119,7 +119,7 @@ class TimelineBuilder:
 
     def compute_velocity(self, period_days: int = 7) -> float:
         """Compute average events per day over the last *period_days* days."""
-        if not self._events:
+        if not self._events or period_days <= 0:
             return 0.0
         now = datetime.now(timezone.utc).replace(tzinfo=None)
         cutoff = now - timedelta(days=period_days)

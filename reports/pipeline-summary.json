@@ -1,0 +1,68 @@
+{
+  "generated_at": "2026-04-12T07:32:21.173714+00:00",
+  "total_events": 44,
+  "total_repos": 12,
+  "total_commits": 44,
+  "active_agents": 5,
+  "milestones": 26,
+  "average_health": 0.432,
+  "weakest_links": [
+    "greenhorn-runtime",
+    "flux-rfc",
+    "flux-knowledge-federation",
+    "flux-sandbox"
+  ],
+  "growth_areas": [
+    "Test coverage (avg 27%)",
+    "Spec completeness (avg 8%)",
+    "Cross-agent collaboration (avg 45%)",
+    "Documentation quality (avg 16%)"
+  ],
+  "agent_summary": {
+    "Super Z": {
+      "repos": 11,
+      "commits": 25,
+      "categories": {
+        "test_add": 5,
+        "spec_change": 5,
+        "code_change": 9,
+        "new_repo": 5,
+        "rfc_activity": 1
+      }
+    },
+    "superinstance": {
+      "repos": 3,
+      "commits": 12,
+      "categories": {
+        "code_change": 10,
+        "test_add": 2
+      }
+    },
+    "Z User": {
+      "repos": 1,
+      "commits": 1,
+      "categories": {
+        "code_change": 1
+      }
+    },
+    "Casey Digennaro": {
+      "repos": 2,
+      "commits": 5,
+      "categories": {
+        "spec_change": 2,
+        "test_add": 1,
+        "code_change": 2
+      }
+    },
+    "Quill (Architect)": {
+      "repos": 1,
+      "commits": 1,
+      "categories": {
+        "code_change": 1
+      }
+    }
+  },
+  "bottlenecks": [
+    "Low cross-agent collaboration (0 events) \u2014 encourage inter-agent PR reviews"
+  ]
+}

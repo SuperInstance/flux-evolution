@@ -436,8 +436,8 @@ class TestTrendAnalysis:
         mc = MetricsComputer()
         events = []
         # Create events in two windows: old window has 1, recent has 5
-        from datetime import datetime, timedelta
-        now = datetime.utcnow()
+        from datetime import datetime, timedelta, timezone
+        now = datetime.now(timezone.utc).replace(tzinfo=None)
         for i in range(5):
             ts = (now - timedelta(hours=i)).strftime("%Y-%m-%dT%H:%M:%SZ")
             events.append(TimelineEvent(
@@ -455,8 +455,8 @@ class TestTrendAnalysis:
     def test_trend_declining(self):
         mc = MetricsComputer()
         events = []
-        from datetime import datetime, timedelta
-        now = datetime.utcnow()
+        from datetime import datetime, timedelta, timezone
+        now = datetime.now(timezone.utc).replace(tzinfo=None)
         # 9 events in older window (days 6–10 ago), 1 in recent window (today)
         for i in range(1, 10):
             ts = (now - timedelta(days=5 + i)).strftime("%Y-%m-%dT%H:%M:%SZ")
